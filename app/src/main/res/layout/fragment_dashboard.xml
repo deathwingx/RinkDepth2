@@ -23,12 +23,12 @@
 
     <TextView
         android:id="@+id/touchLocation"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-140dp"
         android:layout_marginEnd="-230dp"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/jrRinkImg"
         app:layout_constraintTop_toBottomOf="@+id/jrRinkImg" />
 </androidx.constraintlayout.widget.ConstraintLayout>

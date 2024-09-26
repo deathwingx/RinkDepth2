@@ -40,19 +40,13 @@ public class HomeFragment extends Fragment {
         et = root.findViewById(R.id.editTextDate);
         viewButton = root.findViewById(R.id.viewBtn);
 
-        datePicker.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                String date = day + " / " + month + " / " + year;
-                et.setText(date);
-            }
+        datePicker.setOnDateChangeListener((calendarView, year, month, day) -> {
+            String date = day + " / " + month + " / " + year;
+            et.setText(date);
         });
 
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: put code here
-            }
+        viewButton.setOnClickListener(view -> {
+            //TODO: put code here
         });
 
         return root;
