@@ -1,0 +1,19 @@
+On focus change save values to file or save after each value is inputted 
+
+After date is selected and view button is pressed check to see if file exist if not show warning saying file does not exist 
+Figure out how to change color of specific day when there is a file for that day 
+
+Dot on image - click the dot to view the depth 
+
+Store depth as float(decimal) or string(fraction) or be able to switch between the two? 
+
+on app open show button for jr rink and button for pro rink
+
+once button is click open calender with days depth was check highlighted
+
+store depths in csv file with depth(string), posX(int), posY(int)
+
+when date is clicked bring up image of ice rink with depths in the
+    location they were taken
+
+Add compare function that compares the two dates that get selected 
