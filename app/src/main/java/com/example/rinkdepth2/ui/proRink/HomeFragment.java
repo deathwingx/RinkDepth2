@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
         Button viewButton;
         TextView response;
 
-        String path = "192.168.2.49:8080/C:\\Users\\berna\\Documents\\rinkDepth";
+        String path = "http://192.168.1.8:8080/C:\\Users\\berna\\Documents\\rinkDepth";
         Context cont = root.getContext();
         File file = new File(cont.getFilesDir(), "test.txt");
         String data = "Hello World!";
@@ -71,8 +71,10 @@ public class HomeFragment extends Fragment {
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String res = String.valueOf(createFile(cont, file, path, data));
-                response.setText(res);
+                new Thread(() -> {
+                    String res = String.valueOf(createFile(cont, file, path, data));
+                    response.setText(res);
+                }).start();
             }
         });
 
@@ -87,6 +89,7 @@ public class HomeFragment extends Fragment {
             File newFile = new File(cont.getFilesDir(), file.getName());
             if (!newFile.createNewFile()) {
                 newFileCreated = false;
+                //appendToFile(cont, file, path, data);
             } else {
                 newFileCreated = true;
             }
@@ -118,6 +121,11 @@ public class HomeFragment extends Fragment {
         return uploadDocument(cont, file, path, data);
     }
 
+    private int appendToFile(Context cont, File file, String path, String data)
+    {
+        return uploadDocument(cont, file, path, data);
+    }
+
     private int uploadDocument(Context cont, File file, String path, String data)
     {
         int response = 0;
@@ -126,12 +134,14 @@ public class HomeFragment extends Fragment {
         try
         {
             URL url = new URL(path);
+            //URL url = new URL("https", "192.168.1.8", 8080, "C:\\Users\\berna\\Documents\\rinkDepth\\test.txt");
             urlConn = url.openConnection();
             urlConn.setDoOutput(true);
             if (urlConn instanceof HttpURLConnection)
             {
                 ((HttpURLConnection) urlConn).setRequestMethod("PUT");
                 urlConn.setRequestProperty("Content-type", "text/plain");
+                urlConn.setRequestProperty("Connection", "close");
                 urlConn.connect();
             }
             BufferedOutputStream bos = new BufferedOutputStream(urlConn.getOutputStream());
@@ -144,7 +154,10 @@ public class HomeFragment extends Fragment {
             }
             bos.close();
             bis.close();
+            assert urlConn instanceof HttpURLConnection;
             response = ((HttpURLConnection)urlConn).getResponseCode();
+            ((HttpURLConnection) urlConn).disconnect();
+            int y = 0;
         }catch (Exception e)
         {
             e.printStackTrace();
