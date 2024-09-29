@@ -31,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
+import java.io.FileWriter;
 
 public class HomeFragment extends Fragment {
 
@@ -50,9 +51,9 @@ public class HomeFragment extends Fragment {
         Button viewButton;
         TextView response;
 
-        String path = "192.168.1.8:8080/C:\\Users\\berna\\Documents\\rinkDepth";
+        String path = "192.168.2.49:8080/C:\\Users\\berna\\Documents\\rinkDepth";
         Context cont = root.getContext();
-        File file = new File(cont.getFilesDir(), "test2.txt");
+        File file = new File(cont.getFilesDir(), "test.txt");
         String data = "Hello World!";
 
         rinkImg = root.findViewById(R.id.proRinkImg);
@@ -98,9 +99,18 @@ public class HomeFragment extends Fragment {
 
     private int writeToFile(Context cont, File file, String path, String data)
     {
-        try (FileOutputStream fos = cont.openFileOutput(file.getName(), Context.MODE_PRIVATE))
+//        try (FileOutputStream fos = cont.openFileOutput(file.getName(), Context.MODE_PRIVATE))
+//        {
+//            fos.write(data.toByteArray());
+//        }catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+        try
         {
-            fos.write(data.getBytes());
+            FileWriter writer = new FileWriter(file);
+            writer.write(data);
+            writer.close();
         }catch (IOException e)
         {
             e.printStackTrace();
