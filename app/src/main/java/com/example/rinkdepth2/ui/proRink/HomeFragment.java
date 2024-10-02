@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         Button viewButton;
         TextView response;
 
-        String path = "http://192.168.1.8:8080";
+        String path = "http://192.168.1.8:8080/C:\\Users\\berna\\Documents\\rinkDepth";
         Context cont = root.getContext();
         File file = new File(cont.getFilesDir(), "test.txt");
         String data = "Hello World!";

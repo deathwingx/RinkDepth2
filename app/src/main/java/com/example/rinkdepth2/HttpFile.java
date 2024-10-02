@@ -17,7 +17,7 @@ public class HttpFile
     public boolean checkConnection(URLConnection urlConn)
     {
         try
-        {
+        {;
             urlConn.setDoOutput(urlConn.getDoOutput());
             return false;
         }catch (IllegalStateException e)
@@ -35,9 +35,9 @@ public class HttpFile
             URL url = new URL(path);
             urlConn = url.openConnection();
             urlConn.setDoOutput(true);
-            boolean connected = checkConnection(urlConn);
-            if (connected)
-            {
+            //boolean connected = checkConnection(urlConn);
+            //if (!connected)
+            //{
                 if (urlConn instanceof HttpURLConnection)
                 {
                     ((HttpURLConnection) urlConn).setRequestMethod("POST");
@@ -46,7 +46,7 @@ public class HttpFile
                     urlConn.setRequestProperty("http.keepAlive", "false");
                     urlConn.connect();
                 }
-            }
+            //}
             BufferedOutputStream bos = new BufferedOutputStream(urlConn.getOutputStream());
             BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(file.toPath()));
 
@@ -55,9 +55,11 @@ public class HttpFile
             {
                 bos.write(x);
             }
+            String mess = ((HttpURLConnection)urlConn).getResponseMessage();
             bos.close();
             bis.close();
-            response = ((HttpURLConnection)urlConn).getResponseCode();
+            //response = ((HttpURLConnection)urlConn).getResponseCode();
+
             ((HttpURLConnection) urlConn).disconnect();
             int y = 0;
         }catch (Exception e)
